@@ -41,3 +41,42 @@ pip install -r requirements.txt
 5. Add tests to verify key behaviors.
 6. Connect your logic to the Streamlit UI in `app.py`.
 7. Refine UML so it matches what you actually built.
+
+## Features
+
+- Task tracking across multiple pets with description, time, duration, priority, and recurrence.
+- Daily schedule generation with a configurable time budget.
+- Two scheduling strategies: time-first and priority-first.
+- Task filtering by pet and completion status.
+- Conflict warnings for exact-time collisions.
+- Recurring task rollover for daily and weekly tasks after completion.
+
+## Testing PawPal+
+
+Run the automated suite:
+
+```bash
+python -m pytest
+```
+
+What the tests cover:
+
+- Core task behavior (completion toggles, task addition to pets).
+- Sorting correctness (chronological `HH:MM` ordering).
+- Recurrence logic (daily and weekly next-instance creation).
+- Conflict detection (warnings for duplicate times, no-warning case).
+- Edge cases (owner with no tasks, schedule constrained by time budget, non-recurring completion behavior).
+
+Confidence Level: ★★★★☆ (4/5)
+
+The suite exercises critical scheduler flows and key edge cases. Remaining risk is mainly around richer overlap detection and advanced preference optimization.
+
+## 📸 Demo
+
+Add your final Streamlit screenshot using the required embed format:
+
+<a href="/course_images/ai110/pawpal_demo.png" target="_blank"><img src='/course_images/ai110/pawpal_demo.png' title='PawPal App' width='' alt='PawPal App' class='center-block' /></a>
+
+## Final UML
+
+The finalized class diagram source is stored in `uml_final.mmd`.

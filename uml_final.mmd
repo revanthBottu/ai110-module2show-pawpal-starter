@@ -1,0 +1,58 @@
+classDiagram
+direction LR
+
+class Task {
+  +str description
+  +int estimated_minutes
+  +str time
+  +str frequency
+  +str priority
+  +date due_date
+  +bool completed
+  +str|None pet_name
+  +str task_id
+  +mark_complete() None
+  +mark_incomplete() None
+}
+
+class Pet {
+  +str name
+  +str species
+  +int age
+  +str pet_id
+  +List~Task~ tasks
+  +add_task(task: Task) Task
+  +create_task(description, estimated_minutes, time, frequency, priority, due_date) Task
+  +remove_task(task_id: str) bool
+  +pending_tasks() List~Task~
+}
+
+class Owner {
+  +str name
+  +str owner_id
+  +Dict~str,str~ preferences
+  +List~Pet~ pets
+  +add_pet(pet: Pet) Pet
+  +create_pet(name: str, species: str, age: int) Pet
+  +remove_pet(pet_id: str) bool
+  +get_pet(pet_id: str) Pet|None
+  +all_tasks() List~Task~
+}
+
+class Scheduler {
+  +Owner owner
+  +get_all_tasks() List~Task~
+  +get_pending_tasks() List~Task~
+  +tasks_for_day(day: date|None) List~Task~
+  +sort_by_time(tasks: List~Task~|None) List~Task~
+  +filter_tasks(completed: bool|None, pet_name: str|None) List~Task~
+  +build_daily_schedule(day: date|None, time_available_minutes: int|None) List~Task~
+  +build_daily_schedule_with_priority(day: date|None, time_available_minutes: int|None) List~Task~
+  +detect_time_conflicts(day: date|None) List~str~
+  +mark_task_complete(task_id: str) bool
+}
+
+Owner "1" o-- "0..*" Pet : owns
+Pet "1" *-- "0..*" Task : has
+Scheduler "1" --> "1" Owner : reads
+Scheduler "1" --> "0..*" Task : schedules
